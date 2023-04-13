@@ -16,15 +16,17 @@ let employees = [
 
 // create loop to create row for each employee
 
+// CREATE A COUNT FUNCTION TO DISPLAY NEXT TO EMPLOYEES HEADER
+function empCountFunction() {                                                   // FUNCTION TO KEEP RUNNING COUNT OF EMPLOYEES 
+    let empCount = empTable.getElementsByTagName("tr").length;
+    let n = document.getElementById("empCount");
+    n.textContent = (empCount - 1);    
+    }
+
 // ADD EMPLOYEES FROM ARRAY
 function empArray(x)  {
 
 // GET THE VALUES FROM THE ARRAY
-
-/*
-deleteBtn.;               // ADD APPROPRIATE BOOTSTRAP CLASSES
-deleteBtn.appendChild(document.createTextNode('X'));                // ADD THE 'X' TEXT TO BUTTON
-*/
 
     for (let emp in x) { 
         let empID       = x[emp][0];
@@ -32,7 +34,7 @@ deleteBtn.appendChild(document.createTextNode('X'));                // ADD THE '
         let empExt      = x[emp][2];
         let empEmail    = x[emp][3];
         let empDept     = x[emp][4];
-        let deleteBtn   = "<button id='myButton' className = 'btn btn-sm btn-danger delete'>X</button>";      // CREATE THE DELETE BUTTON
+        let deleteBtn   = '<button id=\'delete\' class = \'btn btn-sm btn-danger delete\'>X</button>';      // CREATE THE DELETE BUTTON
     
         // INSERT A NEW ROW AT THE END OF THE EMPLOYEES TABLE
         const empRow = document.createElement('tr');
@@ -51,11 +53,7 @@ deleteBtn.appendChild(document.createTextNode('X'));                // ADD THE '
                         };
 empArray(employees);                                    // CALL THE FUNCTION TO DISPLAY THE ARRAY IN THE EMPLOYEE TABLE
 
-
-// ADD EMPLOYEE
-
-// SET A COUNT VARIABLE TO DISPLAY NEXT TO EMPLOYEES HEADER
-let count = 0;
+empCountFunction();                                     // CALL THE FUNCTION TO DISPLAY THE EMPLOYEE COUNT
 
 // ADD EMPLOYEE
 empForm.addEventListener('submit', (e) => {
@@ -95,8 +93,7 @@ empForm.addEventListener('submit', (e) => {
     // SET FOCUS BACK TO THE ID TEXT BOX
     document.querySelector('#id').focus();
     // INCREMENENT THE NUMBER OF EMPLOYEES IN THE TABLE
-    count++;
-    empCount.value = `(${count})`;
+    empCountFunction();empCountFunction();                                              // CALL THE FUNCTION TO DISPLAY THE EMPLOYEE COUNT
 });
 
 // DELETE EMPLOYEE
@@ -108,8 +105,7 @@ empTable.addEventListener('click', (e) => {
             // PASS THE ROWINDEX FOR THE TR (PARENTNODE.PARENTNODE)
             empTable.deleteRow(e.target.parentElement.parentElement.rowIndex);
             // DECREMENT THE COUNTER
-            count--;
-            empCount.value = `(${count})`;
+            empCountFunction();empCountFunction();                                     // CALL THE FUNCTION TO DISPLAY THE EMPLOYEE COUNT
         }
     }
 });
