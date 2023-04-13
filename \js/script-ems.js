@@ -65,6 +65,15 @@ empForm.addEventListener('submit', (e) => {
     let empExt      = document.querySelector('#extension').value;
     let empEmail    = document.querySelector('#email').value;
     let empDept     = document.querySelector('#department').value;
+    
+    // ADD EMPLOYEE TO THE ARRAY
+    newEmployee = [empID, empName, empExt, empEmail, empDept];
+    employees.push(newEmployee);
+    empArray(employees);
+    empCountFunction()
+            });
+
+    /*
     // INSERT A NEW ROW AT THE END OF THE EMPLOYEES TABLE
     let empRow      = empTable.insertRow();
     // INSERT A CELL FOR EACH ITEM WITHIN THE NEW ROW
@@ -94,7 +103,8 @@ empForm.addEventListener('submit', (e) => {
     document.querySelector('#id').focus();
     // INCREMENENT THE NUMBER OF EMPLOYEES IN THE TABLE
     empCountFunction();empCountFunction();                                              // CALL THE FUNCTION TO DISPLAY THE EMPLOYEE COUNT
-});
+    */
+
 
 // DELETE EMPLOYEE
 empTable.addEventListener('click', (e) => {
