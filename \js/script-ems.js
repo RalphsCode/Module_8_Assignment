@@ -29,21 +29,22 @@ function empCountFunction() {                                                   
 
 
 
-// FUNCTION TO ADD EMPLOYEES FROM ARRAY
+// FUNCTION TO BUILD THE EMPLOYEE GRID FROM THE EMPLOYEE ARRAY
 //*******************************************************************************************
 function empArray(x)  {
 
-// GET THE VALUES FROM THE ARRAY
-    for (let emp in x) { 
+tableBody.innerHTML = '';                                           // CLEAR THE EMPLOYEE GRID/ROWS
+
+    for (let emp in x) {                                            // GET THE VALUES FROM THE ARRAY
         let empID       = x[emp][0];
         let empName     = x[emp][1];
         let empExt      = x[emp][2];
         let empEmail    = x[emp][3];
         let empDept     = x[emp][4];
         let deleteBtn   = '<button id=\'delete\' class = \'btn btn-sm btn-danger delete\'>X</button>';      // CREATE THE DELETE BUTTON
-        // INSERT A NEW ROW AT THE END OF THE EMPLOYEES TABLE
-        const empRow = document.createElement('tr');
-        // Construct the row HTML using a template literal string
+
+        const empRow = document.createElement('tr');                // INSERT A NEW ROW AT THE END OF THE EMPLOYEES TABLE
+                                                                    // CONSTRUCT A NEW ROW IN THE TABLE AND POPULATE WITH THE EMPLOYEES
         empRow.innerHTML = `
         <td>${empID}</td>
         <td>${empName}</td>
@@ -52,14 +53,12 @@ function empArray(x)  {
         <td>${empDept}</td>
         <td>${deleteBtn}</td>
             `;
-            tableBody.appendChild(empRow);
-                                  }
-        
-                    };
+            tableBody.appendChild(empRow);                           // INSERT THE NEW ROW INTO THE GRID
+                    }     };
 
-empArray(employees);                                    // CALL THE FUNCTION TO DISPLAY THE ARRAY IN THE EMPLOYEE TABLE
+empArray(employees);                                                 // CALL THE FUNCTION TO BUILD THE GRID/ROWS
 
-empCountFunction();                                     // CALL THE FUNCTION TO DISPLAY THE EMPLOYEE COUNT
+empCountFunction();                                                  // CALL THE FUNCTION TO DISPLAY THE EMPLOYEE COUNT
 
 // ADD EMPLOYEE
 //*******************************************************************************************
@@ -73,36 +72,25 @@ empForm.addEventListener('submit', (e) => {
     let empEmail    = document.querySelector('#email').value;
     let empDept     = document.querySelector('#department').value;
     let deleteBtn   = '<button id=\'delete\' class = \'btn btn-sm btn-danger delete\'>X</button>';      // CREATE THE DELETE BUTTON
-    // INSERT A NEW ROW AT THE END OF THE EMPLOYEES TABLE
-    const empRow = document.createElement('tr');
-    // Construct the row HTML using a template literal string
-    empRow.innerHTML = `
-    <td>${empID}</td>
-    <td>${empName}</td>
-    <td>${empExt}</td>
-    <td>${empEmail}</td>
-    <td>${empDept}</td>
-    <td>${deleteBtn}</td>
-        `;
-        tableBody.appendChild(empRow);
 
     newEmployee = [empID, empName, empExt, empEmail, empDept];          // ADD EMPLOYEE TO THE ARRAY
     employees.push(newEmployee);
+
+    empArray(employees);                                                // CALL THE FUNCTION TO BUILD THE GRID/ROWS
 
     empCountFunction();                                                 // CALL THE FUNCTION TO DISPLAY THE EMPLOYEE COUNT
             });
 
 
 // DELETE EMPLOYEE
+//*******************************************************************************************
 empTable.addEventListener('click', (e) => {
     // CONFIRM DELETE
     if (e.target.classList.contains('delete')) {
         if (confirm('Are you sure you want to delete this employee?')) {
-            // CALL THE DELETEROW() METHOD TO DELETE SPECIFIC ROW IN TABLE
-            // PASS THE ROWINDEX FOR THE TR (PARENTNODE.PARENTNODE)
-            empTable.deleteRow(e.target.parentElement.parentElement.rowIndex);
-            // DECREMENT THE COUNTER
-            empCountFunction();empCountFunction();                                     // CALL THE FUNCTION TO DISPLAY THE EMPLOYEE COUNT
+            empTable.deleteRow(e.target.parentElement.parentElement.rowIndex);      //DELETE THE ROW
+
+            empCountFunction();                                                     // CALL THE FUNCTION TO DISPLAY THE EMPLOYEE COUNT
         }
     }
 });
