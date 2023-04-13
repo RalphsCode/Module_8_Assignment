@@ -3,19 +3,25 @@ let empForm     = document.querySelector('#addForm');
 let empTable    = document.getElementById("empTable");
 let empCount    = document.querySelector('#empCount');
 let tableBody   = document.querySelector('#empTable tbody');
+let employees = []
 
-// CREATE AN ARRAY OF EMPLOYEES
 
-let employees = [
-    ['00001111', 'Ben Dover', '1111', 'bwire@employer.org', 'Executive'],
-    ['00002222', 'Sue Flay', '2222', 'sflay@employer.org', 'Administration'],
-    ['00003333', 'Polly Graph', '3333', 'pgraph@employer.org', 'Marketing'],
-    ['00004444', 'Ima Genius', '4444', 'igenius@employer.org', 'Sales'],
-    ['00005555', 'Anita Bath', '5555', 'abath@employer.org', 'Sales']
-];
+// CHECK STORAGE FOR AN EXISTING LOOP
 
-// create loop to create row for each employee
-
+if  (localStorage.employees) {
+ // CREATE AN ARRAY OF EMPLOYEES
+    employees = JSON.parse(localStorage.getItem('employees'));
+    }
+else {
+    employees = [
+        ['00001111', 'Ben Dover', '1111', 'bwire@employer.org', 'Executive'],
+        ['00002222', 'Sue Flay', '2222', 'sflay@employer.org', 'Administration'],
+        ['00003333', 'Polly Graph', '3333', 'pgraph@employer.org', 'Marketing'],
+        ['00004444', 'Ima Genius', '4444', 'igenius@employer.org', 'Sales'],
+        ['00005555', 'Anita Bath', '5555', 'abath@employer.org', 'Sales']
+    ];   }
+        
+    
 // CREATE A COUNT FUNCTION TO DISPLAY NEXT TO EMPLOYEES HEADER
 //*******************************************************************************************
 function empCountFunction() {                                                   // FUNCTION TO KEEP RUNNING COUNT OF EMPLOYEES 
@@ -23,11 +29,6 @@ function empCountFunction() {                                                   
     let n = document.getElementById("empCount");
     n.textContent = (empCount - 1);    
     }
-
-// CREATE A FUNCTION TO BUILD THE EMPLOYEE GRID/ROWS
-//*******************************************************************************************
-
-
 
 // FUNCTION TO BUILD THE EMPLOYEE GRID FROM THE EMPLOYEE ARRAY
 //*******************************************************************************************
@@ -53,7 +54,9 @@ tableBody.innerHTML = '';                                           // CLEAR THE
         <td>${empDept}</td>
         <td>${deleteBtn}</td>
             `;
-            tableBody.appendChild(empRow);                           // INSERT THE NEW ROW INTO THE GRID
+        tableBody.appendChild(empRow);                           // INSERT THE NEW ROW INTO THE GRID
+
+        localStorage.setItem('employees', JSON.stringify(employees));                     // STORE THE EMPLOYEES ON THE CLIENT
                     }     };
 
 empArray(employees);                                                 // CALL THE FUNCTION TO BUILD THE GRID/ROWS
@@ -73,7 +76,7 @@ empForm.addEventListener('submit', (e) => {
     let empDept     = document.querySelector('#department').value;
     let deleteBtn   = '<button id=\'delete\' class = \'btn btn-sm btn-danger delete\'>X</button>';      // CREATE THE DELETE BUTTON
 
-    newEmployee = [empID, empName, empExt, empEmail, empDept];          // ADD NEW EMPLOYEE TO THE EMPLOYEES ARRAY
+    let newEmployee = [empID, empName, empExt, empEmail, empDept];          // ADD NEW EMPLOYEE TO THE EMPLOYEES ARRAY
     employees.push(newEmployee);
 
     empArray(employees);                                                // CALL THE FUNCTION TO BUILD THE GRID/ROWS
@@ -95,4 +98,4 @@ empTable.addEventListener('click', (e) => {
     }
 });
 
-sessionStorage.setItem('employees', JSON.stringify(employees));                     // STORE THE EMPLOYEES LOCALLY
+
