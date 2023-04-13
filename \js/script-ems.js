@@ -17,17 +17,23 @@ let employees = [
 // create loop to create row for each employee
 
 // CREATE A COUNT FUNCTION TO DISPLAY NEXT TO EMPLOYEES HEADER
+//*******************************************************************************************
 function empCountFunction() {                                                   // FUNCTION TO KEEP RUNNING COUNT OF EMPLOYEES 
     let empCount = empTable.getElementsByTagName("tr").length;
     let n = document.getElementById("empCount");
     n.textContent = (empCount - 1);    
     }
 
-// ADD EMPLOYEES FROM ARRAY
+// CREATE A FUNCTION TO BUILD THE EMPLOYEE GRID/ROWS
+//*******************************************************************************************
+
+
+
+// FUNCTION TO ADD EMPLOYEES FROM ARRAY
+//*******************************************************************************************
 function empArray(x)  {
 
 // GET THE VALUES FROM THE ARRAY
-
     for (let emp in x) { 
         let empID       = x[emp][0];
         let empName     = x[emp][1];
@@ -35,27 +41,28 @@ function empArray(x)  {
         let empEmail    = x[emp][3];
         let empDept     = x[emp][4];
         let deleteBtn   = '<button id=\'delete\' class = \'btn btn-sm btn-danger delete\'>X</button>';      // CREATE THE DELETE BUTTON
-    
         // INSERT A NEW ROW AT THE END OF THE EMPLOYEES TABLE
         const empRow = document.createElement('tr');
-            // Construct the row HTML using a template literal string
-            empRow.innerHTML = `
-            <td>${empID}</td>
-            <td>${empName}</td>
-            <td>${empExt}</td>
-            <td>${empEmail}</td>
-            <td>${empDept}</td>
-            <td>${deleteBtn}</td>
-        `;
-        tableBody.appendChild(empRow);
-                       }
-                       
-                        };
+        // Construct the row HTML using a template literal string
+        empRow.innerHTML = `
+        <td>${empID}</td>
+        <td>${empName}</td>
+        <td>${empExt}</td>
+        <td>${empEmail}</td>
+        <td>${empDept}</td>
+        <td>${deleteBtn}</td>
+            `;
+            tableBody.appendChild(empRow);
+                                  }
+        
+                    };
+
 empArray(employees);                                    // CALL THE FUNCTION TO DISPLAY THE ARRAY IN THE EMPLOYEE TABLE
 
 empCountFunction();                                     // CALL THE FUNCTION TO DISPLAY THE EMPLOYEE COUNT
 
 // ADD EMPLOYEE
+//*******************************************************************************************
 empForm.addEventListener('submit', (e) => {
     // PREVENT FORM SUBMISSION
     e.preventDefault();
@@ -65,45 +72,25 @@ empForm.addEventListener('submit', (e) => {
     let empExt      = document.querySelector('#extension').value;
     let empEmail    = document.querySelector('#email').value;
     let empDept     = document.querySelector('#department').value;
-    
-    // ADD EMPLOYEE TO THE ARRAY
-    newEmployee = [empID, empName, empExt, empEmail, empDept];
-    employees.push(newEmployee);
-    empArray(employees);
-    empCountFunction()
-            });
-
-    /*
+    let deleteBtn   = '<button id=\'delete\' class = \'btn btn-sm btn-danger delete\'>X</button>';      // CREATE THE DELETE BUTTON
     // INSERT A NEW ROW AT THE END OF THE EMPLOYEES TABLE
-    let empRow      = empTable.insertRow();
-    // INSERT A CELL FOR EACH ITEM WITHIN THE NEW ROW
-    let cellID      = empRow.insertCell();
-    let cellName    = empRow.insertCell();
-    let cellExt     = empRow.insertCell();
-    let cellEmail   = empRow.insertCell();
-    let cellDept    = empRow.insertCell();
-    let cellDelete  = empRow.insertCell();
-    // APPEND THE TEXT VALUES AS TEXT NODES WITHIN THE CELLS
-    cellID.appendChild(document.createTextNode(empID));
-    cellName.appendChild(document.createTextNode(empName));
-    cellExt.appendChild(document.createTextNode(empExt));
-    cellEmail.appendChild(document.createTextNode(empEmail));
-    cellDept.appendChild(document.createTextNode(empDept));
-    // CREATE THE DELETE BUTTON
-    let deleteBtn   = document.createElement('button');
-    // ADD APPROPRIATE BOOTSTRAP CLASSES
-    deleteBtn.className = 'btn btn-sm btn-danger delete';
-    // ADD THE 'X' TEXT TO BUTTON
-    deleteBtn.appendChild(document.createTextNode('X'));
-    // APPEND BUTTON TO THE CELL
-    cellDelete.appendChild(deleteBtn);
-    // RESET THE FORM
-    document.querySelector('#addForm').reset();
-    // SET FOCUS BACK TO THE ID TEXT BOX
-    document.querySelector('#id').focus();
-    // INCREMENENT THE NUMBER OF EMPLOYEES IN THE TABLE
-    empCountFunction();empCountFunction();                                              // CALL THE FUNCTION TO DISPLAY THE EMPLOYEE COUNT
-    */
+    const empRow = document.createElement('tr');
+    // Construct the row HTML using a template literal string
+    empRow.innerHTML = `
+    <td>${empID}</td>
+    <td>${empName}</td>
+    <td>${empExt}</td>
+    <td>${empEmail}</td>
+    <td>${empDept}</td>
+    <td>${deleteBtn}</td>
+        `;
+        tableBody.appendChild(empRow);
+
+    newEmployee = [empID, empName, empExt, empEmail, empDept];          // ADD EMPLOYEE TO THE ARRAY
+    employees.push(newEmployee);
+
+    empCountFunction();                                                 // CALL THE FUNCTION TO DISPLAY THE EMPLOYEE COUNT
+            });
 
 
 // DELETE EMPLOYEE
