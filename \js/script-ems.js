@@ -1,4 +1,7 @@
-const empTable = document.getElementById("empTable");
+// GET ADD EMPLOYEE FORM AND EMPLOYEE TABLE FROM THE DOM
+let empForm     = document.querySelector('#addForm');
+let empTable    = document.getElementById("empTable");
+let empCount    = document.querySelector('#empCount');
 
 // CREATE AN ARRAY OF EMPLOYEES
 
@@ -11,15 +14,7 @@ let employees = [
 ];
 
 // create loop to create row for each employee
-/*
-for (let emp in employees) { 
-    console.log(`Emp Number: ${employees[emp][0]}`)
-    console.log(`Emp Name: ${employees[emp][1]}`)
-    console.log(`Extension.: ${employees[emp][2]}`)
-    console.log(`Emp email: ${employees[emp][3]}`)
-    console.log(`Emp Dept: ${employees[emp][4]}`)
-};
-*/
+
 // ADD EMPLOYEES FROM ARRAY
 function empArray(x)  {
 // GET THE VALUES FROM THE ARRAY
@@ -56,61 +51,66 @@ function empArray(x)  {
                         }
                         };
 empArray(employees);
-/*
-// CHECK TO SEE IF STORAGE OBJECT EXISTS WHEN THE PAGE LOADS
-// IF DOES, RETURN STORAGE OBJECT INTO ARRAY INSTEAD OF POPULATED ARRAY
-
-
-// GET DOM ELEMENTS
-
-
-// BUILD THE EMPLOYEES TABLE WHEN THE PAGE LOADS
 
 
 // ADD EMPLOYEE
-form.addEventListener('submit', (e) => {
+
+// SET A COUNT VARIABLE TO DISPLAY NEXT TO EMPLOYEES HEADER
+let count = 0;
+
+// ADD EMPLOYEE
+empForm.addEventListener('submit', (e) => {
     // PREVENT FORM SUBMISSION
-
+    e.preventDefault();
     // GET THE VALUES FROM THE TEXT BOXES
-
-    // ADD THE NEW EMPLOYEE TO A NEW ARRAY OBJECT
-
-    // PUSH THE NEW ARRAY TO THE *EXISTING* EMPLOYEES ARRAY
-
-    // BUILD THE GRID
-
+    let empID       = document.querySelector('#id').value;
+    let empName     = document.querySelector('#name').value;
+    let empExt      = document.querySelector('#extension').value;
+    let empEmail    = document.querySelector('#email').value;
+    let empDept     = document.querySelector('#department').value;
+    // INSERT A NEW ROW AT THE END OF THE EMPLOYEES TABLE
+    let empRow      = empTable.insertRow();
+    // INSERT A CELL FOR EACH ITEM WITHIN THE NEW ROW
+    let cellID      = empRow.insertCell();
+    let cellName    = empRow.insertCell();
+    let cellExt     = empRow.insertCell();
+    let cellEmail   = empRow.insertCell();
+    let cellDept    = empRow.insertCell();
+    let cellDelete  = empRow.insertCell();
+    // APPEND THE TEXT VALUES AS TEXT NODES WITHIN THE CELLS
+    cellID.appendChild(document.createTextNode(empID));
+    cellName.appendChild(document.createTextNode(empName));
+    cellExt.appendChild(document.createTextNode(empExt));
+    cellEmail.appendChild(document.createTextNode(empEmail));
+    cellDept.appendChild(document.createTextNode(empDept));
+    // CREATE THE DELETE BUTTON
+    let deleteBtn   = document.createElement('button');
+    // ADD APPROPRIATE BOOTSTRAP CLASSES
+    deleteBtn.className = 'btn btn-sm btn-danger delete';
+    // ADD THE 'X' TEXT TO BUTTON
+    deleteBtn.appendChild(document.createTextNode('X'));
+    // APPEND BUTTON TO THE CELL
+    cellDelete.appendChild(deleteBtn);
     // RESET THE FORM
-
+    document.querySelector('#addForm').reset();
     // SET FOCUS BACK TO THE ID TEXT BOX
-
+    document.querySelector('#id').focus();
+    // INCREMENENT THE NUMBER OF EMPLOYEES IN THE TABLE
+    count++;
+    empCount.value = `(${count})`;
 });
 
 // DELETE EMPLOYEE
 empTable.addEventListener('click', (e) => {
-    // CONFIRM THE DELETE
-
-        // GET THE SELECTED ROWINDEX FOR THE TR (PARENTNODE.PARENTNODE)
-
-        // REMOVE EMPLOYEE FROM ARRAY
-
-        // BUILD THE GRID
-
+    // CONFIRM DELETE
+    if (e.target.classList.contains('delete')) {
+        if (confirm('Are you sure you want to delete this employee?')) {
+            // CALL THE DELETEROW() METHOD TO DELETE SPECIFIC ROW IN TABLE
+            // PASS THE ROWINDEX FOR THE TR (PARENTNODE.PARENTNODE)
+            empTable.deleteRow(e.target.parentElement.parentElement.rowIndex);
+            // DECREMENT THE COUNTER
+            count--;
+            empCount.value = `(${count})`;
+        }
+    }
 });
-
-// BUILD THE EMPLOYEES GRID
-function buildGrid() {
-    // REMOVE THE EXISTING SET OF ROWS BY REMOVING THE ENTIRE TBODY SECTION
-
-    // REBUILD THE TBODY FROM SCRATCH
-
-    // LOOP THROUGH THE ARRAY OF EMPLOYEES
-    // REBUILDING THE ROW STRUCTURE
-
-    // BIND THE TBODY TO THE EMPLOYEE TABLE
-
-    // UPDATE EMPLOYEE COUNT
-
-    // STORE THE ARRAY IN STORAGE
-
-};
-*/
