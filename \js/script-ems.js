@@ -2,6 +2,7 @@
 let empForm     = document.querySelector('#addForm');
 let empTable    = document.getElementById("empTable");
 let empCount    = document.querySelector('#empCount');
+let tableBody   = document.querySelector('#empTable tbody');
 
 // CREATE AN ARRAY OF EMPLOYEES
 
@@ -17,7 +18,13 @@ let employees = [
 
 // ADD EMPLOYEES FROM ARRAY
 function empArray(x)  {
+
 // GET THE VALUES FROM THE ARRAY
+
+/*
+deleteBtn.;               // ADD APPROPRIATE BOOTSTRAP CLASSES
+deleteBtn.appendChild(document.createTextNode('X'));                // ADD THE 'X' TEXT TO BUTTON
+*/
 
     for (let emp in x) { 
         let empID       = x[emp][0];
@@ -25,32 +32,24 @@ function empArray(x)  {
         let empExt      = x[emp][2];
         let empEmail    = x[emp][3];
         let empDept     = x[emp][4];
+        let deleteBtn   = "<button id='myButton' className = 'btn btn-sm btn-danger delete'>X</button>";      // CREATE THE DELETE BUTTON
+    
         // INSERT A NEW ROW AT THE END OF THE EMPLOYEES TABLE
-        let empRow      = empTable.insertRow();
-        // INSERT A CELL FOR EACH ITEM WITHIN THE NEW ROW
-        let cellID      = empRow.insertCell();
-        let cellName    = empRow.insertCell();
-        let cellExt     = empRow.insertCell();
-        let cellEmail   = empRow.insertCell();
-        let cellDept    = empRow.insertCell();
-        let cellDelete  = empRow.insertCell();
-        // APPEND THE TEXT VALUES AS TEXT NODES WITHIN THE CELLS
-        cellID.appendChild(document.createTextNode(empID));
-        cellName.appendChild(document.createTextNode(empName));
-        cellExt.appendChild(document.createTextNode(empExt));
-        cellEmail.appendChild(document.createTextNode(empEmail));
-        cellDept.appendChild(document.createTextNode(empDept));
-        // CREATE THE DELETE BUTTON
-        let deleteBtn   = document.createElement('button');
-        // ADD APPROPRIATE BOOTSTRAP CLASSES
-        deleteBtn.className = 'btn btn-sm btn-danger delete';
-        // ADD THE 'X' TEXT TO BUTTON
-        deleteBtn.appendChild(document.createTextNode('X'));
-        // APPEND BUTTON TO THE CELL
-        cellDelete.appendChild(deleteBtn);
-                        }
+        const empRow = document.createElement('tr');
+            // Construct the row HTML using a template literal string
+            empRow.innerHTML = `
+            <td>${empID}</td>
+            <td>${empName}</td>
+            <td>${empExt}</td>
+            <td>${empEmail}</td>
+            <td>${empDept}</td>
+            <td>${deleteBtn}</td>
+        `;
+        tableBody.appendChild(empRow);
+                       }
+                       
                         };
-empArray(employees);
+empArray(employees);                                    // CALL THE FUNCTION TO DISPLAY THE ARRAY IN THE EMPLOYEE TABLE
 
 
 // ADD EMPLOYEE
