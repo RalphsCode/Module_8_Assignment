@@ -73,7 +73,7 @@ empForm.addEventListener('submit', (e) => {
     let empDept     = document.querySelector('#department').value;
     let deleteBtn   = '<button id=\'delete\' class = \'btn btn-sm btn-danger delete\'>X</button>';      // CREATE THE DELETE BUTTON
 
-    newEmployee = [empID, empName, empExt, empEmail, empDept];          // ADD EMPLOYEE TO THE ARRAY
+    newEmployee = [empID, empName, empExt, empEmail, empDept];          // ADD NEW EMPLOYEE TO THE EMPLOYEES ARRAY
     employees.push(newEmployee);
 
     empArray(employees);                                                // CALL THE FUNCTION TO BUILD THE GRID/ROWS
@@ -94,3 +94,5 @@ empTable.addEventListener('click', (e) => {
         }
     }
 });
+
+sessionStorage.setItem('employees', JSON.stringify(employees));                     // STORE THE EMPLOYEES LOCALLY
