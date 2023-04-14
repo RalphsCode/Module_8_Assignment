@@ -12,11 +12,11 @@ if  (localStorage.employees) {                                                  
     employees = JSON.parse(localStorage.getItem('employees'));
     }                                                                           // IF EXISTING ARRAY - USE THAT
 else {
-    employees = [                                                                // IF NO ARRAY IN STORAGE CREATE ONE
-        ['00001111', 'Ben Dover', '1111', 'bwire@employer.org', 'Executive'],
+    employees = [                                                               // IF NO ARRAY IN STORAGE CREATE ONE
+        ['00001111', 'Ben Dover', '1111', 'bdover@employer.org', 'Executive'],
         ['00002222', 'Sue Flay', '2222', 'sflay@employer.org', 'Administration'],
         ['00003333', 'Polly Graph', '3333', 'pgraph@employer.org', 'Marketing'],
-        ['00004444', 'Ima Genius', '4444', 'igenius@employer.org', 'Sales'],
+        ['00004444', 'Crystal Ball', '4444', 'cball@employer.org', 'Sales'],
         ['00005555', 'Anita Bath', '5555', 'abath@employer.org', 'Sales']
     ];   }
         
@@ -50,14 +50,16 @@ tableBody.innerHTML = '';                                           // CLEAR THE
         <td>${empDept}</td>
         <td><button id='delete' class = 'btn btn-sm btn-danger delete'>X</button></td>
             `;
-        tableBody.appendChild(empRow);                              // INSERT THE NEW ROW INTO THE GRID
+        tableBody.appendChild(empRow);                                   // INSERT THE NEW ROW INTO THE GRID
 
-        localStorage.setItem('employees', JSON.stringify(employees));          // STORE THE EMPLOYEES ON THE CLIENT
+        document.getElementById("id").focus();
+        
+        localStorage.setItem('employees', JSON.stringify(employees));     // STORE THE EMPLOYEES ON THE CLIENT
                     }     };
 
-empArray(employees);                                                 // CALL THE FUNCTION TO BUILD THE GRID/ROWS
+empArray(employees);                                                      // CALL THE FUNCTION TO BUILD THE GRID/ROWS
 
-empCountFunction();                                                  // CALL THE FUNCTION TO DISPLAY THE EMPLOYEE COUNT
+empCountFunction();                                                       // CALL THE FUNCTION TO DISPLAY THE EMPLOYEE COUNT
 
 // ADD EMPLOYEE
 //*******************************************************************************************
@@ -71,23 +73,31 @@ empForm.addEventListener('submit', (e) => {
     let empEmail    = document.querySelector('#email').value;
     let empDept     = document.querySelector('#department').value;
   
-    let newEmployee = [empID, empName, empExt, empEmail, empDept];          // ADD NEW EMPLOYEE TO THE EMPLOYEES ARRAY
+    let newEmployee = [empID, empName, empExt, empEmail, empDept];       // ADD NEW EMPLOYEE TO THE EMPLOYEES ARRAY
     employees.push(newEmployee);
 
     empArray(employees);                                                // CALL THE FUNCTION TO BUILD THE GRID/ROWS
 
     empCountFunction();                                                 // CALL THE FUNCTION TO DISPLAY THE EMPLOYEE COUNT
+
+    // RESET THE FORM
+        document.getElementById("addForm").reset();
+
+    // SET FOCUS BACK TO THE ID TEXT BOX
+        document.getElementById("id").focus();
             });
 
 // DELETE EMPLOYEE
 //*******************************************************************************************
 empTable.addEventListener('click', (e) => {
-    // CONFIRM DELETE
     if (e.target.classList.contains('delete')) {
-        if (confirm('Are you sure you want to delete this employee?')) {
-            empTable.deleteRow(e.target.parentElement.parentElement.rowIndex);      //DELETE THE ROW
+        if (confirm('Are you sure you want to delete this employee?')) {       // CONFIRM DELETE
+            deleteRow = e.target.parentElement.parentElement.rowIndex;
+            employees.splice((deleteRow - 1),1);                               // DELETE EMPLOYEE FROM THE ARRAY 
 
-            empCountFunction();                                                     // CALL THE FUNCTION TO DISPLAY THE EMPLOYEE COUNT
+empArray(employees);                                                           // CALL THE FUNCTION TO BUILD THE GRID/ROWS
+
+empCountFunction();                                                            // CALL THE FUNCTION TO DISPLAY THE EMPLOYEE COUNT
         }
     }
 });
