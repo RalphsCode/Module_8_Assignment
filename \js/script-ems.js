@@ -39,8 +39,7 @@ tableBody.innerHTML = '';                                           // CLEAR THE
         let empExt      = x[emp][2];
         let empEmail    = x[emp][3];
         let empDept     = x[emp][4];
-        let deleteBtn   = '<button id=\'delete\' class = \'btn btn-sm btn-danger delete\'>X</button>';      // CREATE THE DELETE BUTTON
-
+       
         const empRow = document.createElement('tr');                // INSERT A NEW ROW AT THE END OF THE EMPLOYEES TABLE
                                                                     // CONSTRUCT A NEW ROW IN THE TABLE AND POPULATE WITH THE EMPLOYEES
         empRow.innerHTML = `
@@ -49,7 +48,7 @@ tableBody.innerHTML = '';                                           // CLEAR THE
         <td>${empExt}</td>
         <td>${empEmail}</td>
         <td>${empDept}</td>
-        <td>${deleteBtn}</td>
+        <td><button id='delete' class = 'btn btn-sm btn-danger delete'>X</button></td>
             `;
         tableBody.appendChild(empRow);                              // INSERT THE NEW ROW INTO THE GRID
 
@@ -71,8 +70,7 @@ empForm.addEventListener('submit', (e) => {
     let empExt      = document.querySelector('#extension').value;
     let empEmail    = document.querySelector('#email').value;
     let empDept     = document.querySelector('#department').value;
-    let deleteBtn   = '<button id=\'delete\' class = \'btn btn-sm btn-danger delete\'>X</button>';      // CREATE THE DELETE BUTTON
-
+  
     let newEmployee = [empID, empName, empExt, empEmail, empDept];          // ADD NEW EMPLOYEE TO THE EMPLOYEES ARRAY
     employees.push(newEmployee);
 
